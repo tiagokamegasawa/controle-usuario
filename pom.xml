@@ -12,7 +12,6 @@
     <artifactId>usuarios</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>controle-usuarios</name>
-    <packaging>war</packaging>
     <description>Micro serviço de controle de usuário</description>
 
     <properties>
@@ -94,7 +93,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.stackify.Application</mainClass>
+                            <mainClass>br.com.fiap.usuarios.ControleUsuariosApplication</mainClass>
                             <outputDirectory>${project.basedir}/docker</outputDirectory>
                         </configuration>
                     </execution>
