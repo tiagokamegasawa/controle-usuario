@@ -12,4 +12,6 @@ public @Data class UserVo {
 
   private String email;
 
+  private Double balance;
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 
 public class UserCustomRepositoryImpl implements UserCustomRepository {
 
@@ -20,15 +21,17 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 
     StringBuilder query = new StringBuilder();
     query.append(" SELECT user.name as name, ");
-    query.append(" user.cpfCnpj as cpfCnpj ");
-    query.append(" user.email as email ");
+    query.append(" user.cpfCnpj as cpfCnpj, ");
+    query.append(" user.email as email, ");
+    query.append(" user.balance as balance ");
     query.append(" FROM ").append(User.class.getCanonicalName());
     query.append(" as user ");
     query.append(" WHERE user.cpfCnpj = :cpfCnpj");
 
     params.put("cpfCnpj", cpfCnpj);
 
-    Query execQuery = entityManager.createQuery(query.toString(), UserVo.class);
+    Query execQuery = entityManager.createQuery(query.toString());
+    execQuery.unwrap(org.hibernate.query.Query.class).setResultTransformer(new AliasToBeanResultTransformer(UserVo.class));
     QueryBuilder.bindParameters(execQuery, params);
 
     return (UserVo) execQuery.getSingleResult();
