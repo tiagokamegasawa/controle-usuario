@@ -45,4 +45,10 @@ public class UserService {
     }
     throw new RuntimeException("User not found");
   }
+
+  public void updateBalance(String cpfCnpj, Double balance) {
+    User user =  this.repository.cpfCnpj(cpfCnpj);
+    user.setBalance(balance);
+    repository.save(user);
+  }
 }

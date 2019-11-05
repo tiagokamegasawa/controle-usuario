@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api("User")
-@RestController()
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
   @Autowired
   private UserService service;
 
-  @PostMapping( consumes = "application/json")
+  @PostMapping( value="/create", consumes = "application/json")
   public ResponseEntity<Long> crreateUser(@RequestBody UserVo userVo) {
     User user = service.createUser(userVo);
     return ResponseEntity.status(HttpStatus.CREATED).body(user.getId());

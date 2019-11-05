@@ -32,6 +32,9 @@ class User {
   @Column(name = "EMAIL")
   private String email;
 
+  @Column(name = "BALANCE")
+  private Double balance;
+
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
   private Set<Account> accounts = new HashSet<>();
 
