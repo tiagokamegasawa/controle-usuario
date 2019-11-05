@@ -36,4 +36,25 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
 
     return (UserVo) execQuery.getSingleResult();
   }
+
+  @Override
+  public Boolean existWithCpfCnpjOrEmail(String cpfCnpj, String email) {
+    Map<String, Object> params = new HashMap<>();
+
+    StringBuilder query = new StringBuilder();
+    query.append(" SELECT count(user.id) ");
+    query.append(" FROM ").append(User.class.getCanonicalName());
+    query.append(" AS user ");
+    query.append(" WHERE user.cpfCnpj = :cpfCnpj");
+    query.append(" OR ");
+    query.append(" user.email = :email");
+
+    params.put("cpfCnpj", cpfCnpj);
+    params.put("email", email);
+
+    Query execQuery = entityManager.createQuery(query.toString());
+    QueryBuilder.bindParameters(execQuery, params);
+
+    return (Long) execQuery.getSingleResult() > 0;
+  }
 }

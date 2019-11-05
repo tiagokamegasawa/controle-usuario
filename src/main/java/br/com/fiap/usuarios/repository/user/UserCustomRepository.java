@@ -6,4 +6,6 @@ public interface UserCustomRepository {
 
   UserVo findByCpfCnpj(String name);
 
+  Boolean existWithCpfCnpjOrEmail(String cpfCnpj, String email);
+
 }

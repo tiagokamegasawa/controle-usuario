@@ -5,6 +5,7 @@ import br.com.fiap.usuarios.entity.User;
 import br.com.fiap.usuarios.entity.vo.AccountVo;
 import br.com.fiap.usuarios.entity.vo.UserVo;
 import br.com.fiap.usuarios.repository.user.UserRepository;
+import br.com.fiap.usuarios.validator.UserValidator;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class UserService {
   private UserRepository repository;
 
   @Autowired
+  private UserValidator validator;
+
+  @Autowired
   private AccountService accountService;
 
   public User createUser(UserVo userVo) {
@@ -23,6 +27,7 @@ public class UserService {
     user.setName(userVo.getName());
     user.setCpfCnpj(userVo.getCpfCnpj());
     user.setEmail(userVo.getEmail());
+    validator.validateInsert(user);
     return repository.save(user);
   }
 
