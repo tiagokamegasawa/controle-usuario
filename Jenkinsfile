@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean install'
+        sh '''cd /var/lib/jenkins/workspace/controle-usuario_master
+
+mvn clean install'''
       }
     }
 
